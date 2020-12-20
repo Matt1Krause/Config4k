@@ -1,0 +1,42 @@
+package io.config4k
+
+@Suppress("EXPERIMENTAL_API_USAGE")
+object PropertyTypes {
+    private const val NUMBER_ARR = "array of numbers"
+    private const val BYTE_R = "between ${Byte.MIN_VALUE} and ${Byte.MAX_VALUE}"
+    const val BYTE = "number $BYTE_R"
+    const val BYTE_ARR = "$NUMBER_ARR $BYTE_R"
+    private const val SHORT_R = "between ${Short.MIN_VALUE} and ${Short.MAX_VALUE}"
+    const val SHORT = "number $SHORT_R"
+    const val SHORT_ARR = "$NUMBER_ARR $SHORT_R"
+    private const val INT_R = "between ${Int.MIN_VALUE} and ${Int.MAX_VALUE}"
+    const val INT = "number $INT_R"
+    const val INT_ARR = "$NUMBER_ARR $INT_R"
+    private const val LONG_R = "between ${Long.MIN_VALUE} and ${Long.MAX_VALUE}"
+    const val LONG = "number $LONG_R"
+    const val LONG_ARR = "$NUMBER_ARR $LONG_R"
+    private const val FLOAT_R = "between ${Float.MIN_VALUE} and ${Float.MAX_VALUE}"
+    const val FLOAT = "number $FLOAT_R"
+    const val FLOAT_ARR = "$NUMBER_ARR $FLOAT_R"
+    private const val DOUBLE_R = "between ${Double.MIN_VALUE} and ${Float.MAX_VALUE}"
+    const val DOUBLE = "number $DOUBLE_R"
+    const val DOUBLE_ARR = "$NUMBER_ARR $DOUBLE_R"
+    private const val U_BYTE_R = "between ${UByte.MIN_VALUE} and ${UByte.MAX_VALUE}"
+    const val U_BYTE = "number $U_BYTE_R"
+    const val U_BYTE_ARR = "$NUMBER_ARR $U_BYTE_R"
+    private const val U_SHORT_R = "between ${UShort.MIN_VALUE} and ${UShort.MAX_VALUE}"
+    const val U_SHORT = "number $U_SHORT_R"
+    const val U_SHORT_ARR = "$NUMBER_ARR $U_SHORT_R"
+    private const val U_INT_R = "between ${UInt.MIN_VALUE} and ${UInt.MAX_VALUE}"
+    const val U_INT = "number $U_INT_R"
+    const val U_INT_ARR = "$NUMBER_ARR $U_INT_R"
+    private const val U_LONG_R = "between ${ULong.MIN_VALUE} and ${ULong.MAX_VALUE}"
+    const val U_LONG = "number $U_LONG_R"
+    const val U_LONG_ARR = "$NUMBER_ARR $U_LONG_R"
+
+    const val BOOLEAN = "boolean value"
+    const val BOOLEAN_ARR = "array of boolean values"
+
+    const val STRING = "text"
+    const val STRING_ARR = "array of text"
+}

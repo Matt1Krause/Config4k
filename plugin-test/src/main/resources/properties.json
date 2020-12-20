@@ -1,0 +1,11 @@
+{
+  "the_answer": 42,
+  "text": "something...",
+  "values": [1, 4, 5],
+  "text_values": ["hello", "World!"],
+  "subclass": {
+    "bool": true
+  },
+  "this_is_a_name": "John",
+  "best_doctor": "10"
+}
