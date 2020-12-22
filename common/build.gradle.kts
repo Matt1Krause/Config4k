@@ -1,13 +1,59 @@
 @file:Suppress("UNUSED_VARIABLE")
 
 plugins {
-    kotlin("multiplatform")
+    id("c4k-build-plugin")
+    //kotlin("multiplatform")
     `maven-publish`
+    //id("com.jfrog.bintray")
+}
+
+/*repositories {
+    gradlePluginPortal()
+    jcenter()
+}
+
+bintray {
+    val bintrayUser: String by rootProject
+    val bintrayApiKey: String by rootProject
+    user = bintrayUser
+    key = bintrayApiKey
+    setPublications("jvm", "js", "native")
+
+    pkg.apply {
+        repo = "config4k"
+        name = "common"
+        setLicenses("Apache-2.0")
+        vcsUrl = "https://github.com/Matt1Krause/Config4k.git"
+        version.apply {
+            val config4kVersion: String by rootProject
+            name = config4kVersion
+        }
+    }
 }
 
 publishing {
     publications {
-        create<MavenPublication>("maven")
+        withType<MavenPublication> {
+            pom {
+                name.set("Config4k Common")
+                description.set("Specifications for working with properties in kotlin")
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("Matt1Krause")
+                        name.set("Matti Krause")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:git://github.com/Matt1Krause/Config4k.git")
+                }
+            }
+        }
     }
 }
 
@@ -63,4 +109,4 @@ kotlin {
         val nativeMain by getting
         val nativeTest by getting
     }
-}
+}*/

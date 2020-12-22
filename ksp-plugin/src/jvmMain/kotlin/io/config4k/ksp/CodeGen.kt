@@ -112,6 +112,7 @@ class CodeGen(private val schema: Schema, codeGenerator: CodeGenerator, private 
         val modList = ArrayList<String>(1)
         if (async) modList.add("suspend")
         val namedMethod = if (async) "asyncNamed" else "named"
+        emitLine("@JvmName(\"${schema.name.decapitalize()}\")")
         functionDecl(schema.visibility.toMod(), modList, schema.name)
         parameter("propertyLoader", propertyLoaderType)
         emitLine("): ${schema.name} = ${schema.name}Raw(")

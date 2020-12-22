@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package io.config4k
 
 abstract class InvalidPropertyException : Exception() {

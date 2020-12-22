@@ -1,22 +1,16 @@
-import java.util.Properties
-
 plugins {
     java
-    //kotlin("1.4.20")
+    `kotlin-dsl`
 }
 
 dependencies {
-    val properties = Properties()
-    properties.load(project.rootDir.parentFile.resolve("gradle.properties").inputStream())
-    val propertyLoaderVersion: String by properties
-    implementation("io.config4k:common:$propertyLoaderVersion")
-    implementation("io.config4k:json:$propertyLoaderVersion")
-    implementation("io.config4k:java-io:$propertyLoaderVersion")
+    val kotlinVersion: String by rootProject
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.20")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin-model:1.4.20")
+    implementation("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5")
+    implementation(gradleApi())
+    implementation(gradleKotlinDsl())
+    implementation(localGroovy())
 }
 
-repositories {
-    mavenLocal()
-    mavenCentral()
-    jcenter()
-
-}
+repositories { jcenter() }

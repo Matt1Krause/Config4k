@@ -19,7 +19,7 @@ ksp {
         .resolve("libs")
         .resolve("buildSrc.jar").toUri().toString()
     )
-    arg("io.config4k.static.loader", "test.Subclass|DaClass.propertyLoader")
+    //arg("io.config4k.static.loader", "test.Subclass|DaClass.propertyLoader")
 }
 
 

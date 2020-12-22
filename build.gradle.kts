@@ -4,7 +4,7 @@ plugins {
 
 allprojects {
     group = "io.config4k"
-    version = project.property("propertyLoaderVersion")!!
+    version = project.property("config4kVersion")!!
 
     repositories {
         mavenCentral()

@@ -1,19 +1,16 @@
 plugins {
-    kotlin("jvm") apply true
+    id("c4k-build-plugin")
+    `maven-publish`
 }
-
-repositories {
-    mavenCentral()
-    google()
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
-    kotlinOptions.jvmTarget = project.property("jvmVersion")!! as String
-}
-
-dependencies {
-    implementation(kotlin("stdlib"))
-    implementation(project(":common"))
-    implementation(project(":annotation"))
-    implementation("com.google.devtools.ksp:symbol-processing-api:${project.property("kspVersion")}")
+kotlin {
+    sourceSets {
+        val jvmMain by getting {
+            dependencies {
+                val kspVersion: String by project
+                implementation(kotlin("stdlib"))
+                implementation(project(":annotation"))
+                implementation("com.google.devtools.ksp:symbol-processing-api:$kspVersion")
+            }
+        }
+    }
 }
