@@ -24,8 +24,11 @@ include("common")
 include("json")
 include("java-io")
 include("annotation")
-include("ksp-plugin")
-include("plugin-test")
 include("property-loader-test-suite")
 include("property-format")
 include("korio-integration")
+include("plugin")
+include("plugin:compiler-plugin")
+include("plugin:compiler-plugin-native")
+findProject(":plugin:compiler-plugin")?.name = "compiler-plugin"
+findProject(":plugin:compiler-plugin-native")?.name = "compiler-plugin-native"

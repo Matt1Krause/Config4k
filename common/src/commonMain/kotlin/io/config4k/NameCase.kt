@@ -30,4 +30,8 @@ sealed class NameCase {
     object InterDotted: NameCase() {
         override fun computeNameFor(name: PropertyName): String = name.joinToString(separator = ".")
     }
+
+    object Raw: NameCase() {
+        override fun computeNameFor(name: PropertyName): String = name.contentToString()
+    }
 }

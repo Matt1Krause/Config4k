@@ -12,7 +12,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 val korlibVersion: String by project
-                implementation("com.soywiz.korlibs.korio:korio:2.0.2")
+                //implementation("com.soywiz.korlibs.korio:korio:2.0.2")
             }
         }
     }

@@ -57,7 +57,7 @@ class LazyMissingPropertyExceptionImpl(
     private val withIndex: Int? = null
 ) : MissingPropertyException() {
     override fun computeMessage(): String {
-        val pathExtension = pathEnd?.let { ".$it" } ?: "" + withIndex?.let { ".$it" }
+        val pathExtension = pathEnd?.let { ".${case.computeNameFor(it)}" } ?: "" + withIndex?.let { ".$it" }
         val aOrAn = if (an) "an" else "a"
         return propertyPath.joinToString(
             case,
@@ -125,6 +125,29 @@ class CustomMessageWrongPropertyException(private val theMessage: String) : Wron
     override fun computeMessage(): String = theMessage
 }
 
+class MutablePathWrongPropertyException(
+    private val mutablePath: MutableList<PropertyName>,
+    private val case: NameCase,
+    private val expected: String,
+    private val an: Boolean = false,
+    private val gotImpl: () -> String
+) : WrongPropertyTypeException() {
+    fun append(propertyName: PropertyName) {
+        mutablePath.add(propertyName)
+    }
+
+    override fun computeMessage(): String {
+        val aOrAn = if (an) "an" else "a"
+        return mutablePath.joinToString(
+            separator = ".",
+            prefix = "expected $aOrAn $expected at",
+            postfix = " but got ${gotImpl.invoke()}"
+        ) {
+            case.computeNameFor(it)
+        }
+    }
+}
+
 inline fun WrongPropertyTypeException(
     propertyPath: PropertyPath,
     pathEnd: PropertyName?,
@@ -160,6 +183,8 @@ inline fun MissingPropertyException(
     until: Int = propertyPath.length,
     an: Boolean = false,
     withIndex: Int? = null
-): MissingPropertyException = LazyMissingPropertyExceptionImpl(propertyPath, pathEnd, case, expected, until, an, withIndex)
+): MissingPropertyException =
+    LazyMissingPropertyExceptionImpl(propertyPath, pathEnd, case, expected, until, an, withIndex)
 
-inline fun MissingPropertyException(message: String): MissingPropertyException = CustomMessageMissingPropertyException(message)
+inline fun MissingPropertyException(message: String): MissingPropertyException =
+    CustomMessageMissingPropertyException(message)

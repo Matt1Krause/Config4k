@@ -5,6 +5,7 @@ import io.config4k.async.AsyncStringSource
 
 class ResourceVfsStringSource(private val path: String): AsyncStringSource {
     override suspend fun get(): String {
-        return resourcesVfs[path].readString()
+        //return resourcesVfs[path].readString()
+        return ""
     }
 }

@@ -79,6 +79,19 @@ class NameCaseContainer(private val name: PropertyName) {
         }
     private val interDotted: String get() = iInterDotted
 
+    private var lRaw: String? = null
+    private inline val iRaw: String
+        get() {
+            val current = lRaw
+            if (current == null) {
+                val nName = NameCase.Raw.computeNameFor(name)
+                lRaw = nName
+                return nName
+            }
+            return current
+        }
+    private val raw: String get() = iRaw
+
     fun computeNameFor(case: NameCase): String {
         return when (case) {
             NameCase.SnakeCase -> iSnakeCase
@@ -87,6 +100,7 @@ class NameCaseContainer(private val name: PropertyName) {
             NameCase.CamelCase -> iCamelCase
             NameCase.KebabCase -> iKebabCase
             NameCase.InterDotted -> iInterDotted
+            NameCase.Raw -> iRaw
         }
     }
 }

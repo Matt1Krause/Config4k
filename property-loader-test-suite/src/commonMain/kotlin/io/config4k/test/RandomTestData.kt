@@ -1,7 +1,7 @@
 package io.config4k.test
 
 import io.config4k.PropertyName
-import io.config4k.asyncNamed
+import io.config4k.asyncNested
 import io.config4k.async.AsyncPropertyLoader
 import kotlin.random.Random
 import kotlin.test.assertTrue
@@ -85,7 +85,7 @@ class RandomTestData private constructor(
         }
         for (child in children) {
             val (name, data) = child
-            data.load(propertyLoader.asyncNamed(name), path.plusElement(name))
+            data.load(propertyLoader.asyncNested(name), path.plusElement(name))
         }
     }
 

@@ -3,7 +3,7 @@ package io.config4k.test
 import io.config4k.MissingPropertyException
 import io.config4k.SingleElementPropertyPath
 import io.config4k.WrongPropertyTypeException
-import io.config4k.asyncNamed
+import io.config4k.asyncNested
 import kotlin.math.pow
 import kotlin.test.*
 
@@ -41,7 +41,7 @@ internal object NamedPresentTestCase: TestCase {
         val name = randomName
         val value = generate()
         propertiesBuilder.advance(nameAdvanced).store(value, name)
-        val returned = propertiesBuilder.get().asyncNamed(nameAdvanced).load(name)
+        val returned = propertiesBuilder.get().asyncNested(nameAdvanced).load(name)
         assertTrue(
             value.valueEquals(returned),
             "Expected stored value ${value.valueToString()} and returned value ${value.valueToString()} of type$typeName to be equal, when after use of 'named'"
@@ -56,7 +56,7 @@ internal object NamedNotPresentTestCase: TestCase {
             MissingPropertyException::class,
             "Expected load$typeName to fail when load from empty properties after use of 'named'"
         ) {
-            propertiesBuilder.get().asyncNamed(randomName).load(randomName)
+            propertiesBuilder.get().asyncNested(randomName).load(randomName)
         }
     }
 }

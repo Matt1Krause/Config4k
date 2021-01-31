@@ -6,7 +6,7 @@ import io.config4k.async.*
 import io.config4k.async.BaseNamedAsyncPropertyLoader
 import io.config4k.blocking.*
 
-suspend fun AsyncPropertyLoader.asyncNamed(name: PropertyName): AsyncPropertyLoader {
+suspend fun AsyncPropertyLoader.asyncNested(name: PropertyName): AsyncPropertyLoader {
     return when (this) {
         is StructuredAsyncPropertyLoader -> advance(name)
         is AsyncStructuredPropertyLoader -> asyncAdvance(name)
@@ -14,30 +14,30 @@ suspend fun AsyncPropertyLoader.asyncNamed(name: PropertyName): AsyncPropertyLoa
     }
 }
 
-fun AsyncPropertyLoader.named(name: PropertyName): AsyncPropertyLoader {
+fun AsyncPropertyLoader.nested(name: PropertyName): AsyncPropertyLoader {
     return when (this) {
         is StructuredAsyncPropertyLoader -> advance(name)
         else -> BaseNamedAsyncPropertyLoader.ImmediateNamedAsyncPropertyLoader(this, name)
     }
 }
 
-fun PropertyLoader.named(name: PropertyName): PropertyLoader {
+fun PropertyLoader.nested(name: PropertyName): PropertyLoader {
     return when (this) {
         is StructuredPropertyLoader -> advance(name)
         else -> io.config4k.blocking.BaseNamedPropertyLoader.ImmediateNamedPropertyLoader(this, name)
     }
 }
 
-suspend inline fun <T> AsyncPropertyLoader.asyncNamed(name: PropertyName, block: AsyncPropertyLoader.()->T): T {
-    return asyncNamed(name).block()
+suspend inline fun <T> AsyncPropertyLoader.asyncNested(name: PropertyName, block: AsyncPropertyLoader.()->T): T {
+    return asyncNested(name).block()
 }
 
-inline fun <T> AsyncPropertyLoader.named(name: PropertyName, block: AsyncPropertyLoader.() -> T): T {
-    return named(name).block()
+inline fun <T> AsyncPropertyLoader.nested(name: PropertyName, block: AsyncPropertyLoader.() -> T): T {
+    return nested(name).block()
 }
 
-inline fun <T> PropertyLoader.named(name: PropertyName, block: PropertyLoader.()->T): T {
-    return named(name).block()
+inline fun <T> PropertyLoader.nested(name: PropertyName, block: PropertyLoader.()->T): T {
+    return nested(name).block()
 }
 
 suspend inline infix fun StringAsyncLoaderFactory.from(source: AsyncStringSource): AsyncPropertyLoader = get(source.get())
@@ -53,3 +53,19 @@ inline fun PropertyLoader.async() =
         AsyncBlockingPropertyLoaderFacade.StructuredAsyncBlockingPropertyLoaderFacade(this)
     else
         AsyncBlockingPropertyLoaderFacade.AsyncBlockingPropertyLoaderFacadeImpl(this)
+
+inline fun <T> AsyncPropertyLoader.getOrDefault(default: ()->T, get: AsyncPropertyLoader.()-> T): T {
+    return try {
+        get()
+    } catch (e: InvalidPropertyException) {
+        default()
+    }
+}
+
+inline fun <T> PropertyLoader.getOrDefault(default: ()->T, get: PropertyLoader.()-> T): T {
+    return try {
+        get()
+    } catch (e: InvalidPropertyException) {
+        default()
+    }
+}

@@ -13,4 +13,17 @@ package io.config4k.annotation
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.BINARY)
 @MustBeDocumented
-annotation class Properties(val forceInternal: Boolean = false)
+annotation class Properties(
+    val visibility: PropertiesVisibility = PropertiesVisibility.DEFAULT,
+    val blockingGeneration: GenerationStance = GenerationStance.DEFAULT,
+    val asyncGeneration: GenerationStance = GenerationStance.DEFAULT,
+    val cascade: Boolean = false
+) {
+    enum class PropertiesVisibility {
+        PUBLIC, INTERNAL, PRIVATE, SAME_AS_CLASS, DEFAULT
+    }
+    companion object {
+        const val FORCE_INTERNAL = false
+        const val CASCADE = false
+    }
+}
